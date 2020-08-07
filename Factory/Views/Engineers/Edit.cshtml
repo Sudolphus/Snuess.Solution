@@ -9,11 +9,11 @@
   @Html.HiddenFor(model => model.EngineerId)
   <div class="form-group">
     @Html.Label("First Name")
-    @Html.TextBoxFor(model => model.FirstName, new { @class="form-control", @required })
+    @Html.TextBoxFor(model => model.FirstName, new { @class="form-control", @required=true })
   </div>
   <div class="form-group">
     @Html.Label("Last Name")
-    @Html.TextBoxFor(model => model.LastName, new { @class="form-control", @required })
+    @Html.TextBoxFor(model => model.LastName, new { @class="form-control", @required=true })
   </div>
   <input type="submit" value="Save Changes" class="btn btn-primary" />
 }

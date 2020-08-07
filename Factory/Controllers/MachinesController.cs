@@ -40,13 +40,17 @@ namespace Factory.Controllers
     public ActionResult Details(int id)
     {
       Machine machine = _db.Machines
-        .Include(machines => machines.Engineers)
-        .ThenInclude(join => join.Engineer)
-        .First(machines => machines.MachineId = id);
-      IEnumerable<Engineer> engineerList = machine.Engineers.Engineer
+        .First(machines => machines.MachineId == id);
+      IEnumerable<Engineer> engineerList = (IQueryable<Engineer>) _db.EngineerMachine
+        .Where(entry => entry.MachineId == id)
+        .Include(join => join.Engineer)
         .ToList()
-        .OrderBy(eng => eng.LastName)
-        .ThenBy(eng => eng.FirstName);
+        .OrderBy(entry => entry.Engineer.LastName)
+        .ThenBy(entry => entry.Engineer.FirstName);
+      // IEnumerable<Engineer> engineerList = engineerListQuery
+      //   .ToList()
+      //   .OrderBy(eng => eng.LastName)
+      //   .ThenBy(eng => eng.FirstName);
       ViewBag.EngineerList = engineerList;
       return View(machine);
     }

@@ -5,7 +5,7 @@ namespace Factory.Controllers
   public class HomeController : Controller
   {
     [HttpGet("/")]
-    public Index()
+    public ActionResult Index()
     {
       return View();
     }

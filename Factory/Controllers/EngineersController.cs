@@ -41,12 +41,18 @@ namespace Factory.Controllers
     public ActionResult Details(int id)
     {
       Engineer engineer = _db.Engineers
-        .Include(eng => eng.Machines)
-        .ThenInclude(join => join.Machine)
         .First(eng => eng.EngineerId == id);
-      IEnumerable<Machine> licenses = engineer.Machines.Machine
+      IEnumerable<Machine> licenses = (IQueryable<Machine>) _db.EngineerMachine
+        .Where(entry => entry.EngineerId == id)
+        .Include(join => join.Machine)
         .ToList()
-        .OrderBy(machines => machines.Name);
+        .OrderBy(entry => entry.Machine.Name);
+      // IQueryable<Machine> licenseQuery = _db.EngineerMachine
+      //   .Where(entry => entry.EngineerId == id)
+      //   .Include(join => join.Machine);
+      // IEnumerable<Machine> licenses = licenseQuery
+      //   .ToList()
+      //   .OrderBy(machines => machines.Name);
       ViewBag.Licenses = licenses;
       return View(engineer);
     }
@@ -60,7 +66,7 @@ namespace Factory.Controllers
     [HttpPost]
     public ActionResult Edit(Engineer engineer)
     {
-      _db.Entry(engineer).Entry = EntityState.Modified;
+      _db.Entry(engineer).State = EntityState.Modified;
       _db.SaveChanges();
       return RedirectToAction("Details", new { id = engineer.EngineerId });
     }

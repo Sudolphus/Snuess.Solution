@@ -10,7 +10,7 @@ namespace Factory.Models
     FactoryContext IDesignTimeDbContextFactory<FactoryContext>.CreateDbContext(string[] args)
     {
       IConfigurationRoot configuration = new ConfigurationBuilder()
-        .SetBasePath(Directory.GetCurrentDirectory)
+        .SetBasePath(Directory.GetCurrentDirectory())
         .AddJsonFile("appsettings.json")
         .Build();
 

@@ -10,7 +10,7 @@
 {
   <div class="form-control">
     @Html.LabelFor(model => model.Name)
-    @Html.TextBoxFor(model => model.Name, new { @class="form-control", @required})
+    @Html.TextBoxFor(model => model.Name, new { @class="form-control", @required=true })
   </div>
   <input type="submit" value="Add Machine" class="btn btn-primary" />
 }
