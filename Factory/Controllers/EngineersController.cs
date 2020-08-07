@@ -47,6 +47,18 @@ namespace Factory.Controllers
       return View(engineer);
     }
 
+    public ActionResult Edit(int id)
+    {
+      Engineer engineer = _db.Engineers.First(eng => eng.EngineerId == id);
+      return View(engineer);
+    }
 
+    [HttpPost]
+    public ActionResult Edit(Engineer engineer)
+    {
+      _db.Entry(engineer).Entry = EntityState.Modified;
+      _db.SaveChanges();
+      return RedirectToAction("Details", new { id = engineer.EngineerId });
+    }
   }
 }
