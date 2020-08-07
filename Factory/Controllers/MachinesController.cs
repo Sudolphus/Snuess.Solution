@@ -110,7 +110,29 @@ namespace Factory.Controllers
 
     public ActionResult RemoveEngineer(int id)
     {
-      
+      Machine machine = _db.Machines
+        .Include(entry => entry.Engineers)
+        .ThenInclude(eng => eng.Engineer)
+        .First(machines => machines.MachineId == id);
+      List<Engineer> engineers = new List();
+      foreach(EngineerMachine entry in machine.Engineers)
+      {
+        engineers.Add(entry.Engineer);
+      }
+      engineers.Sort();
+      ViewBag.EnginerId = new SelectList(engineers, "EngineerId", "FirstName LastName");
+      return View(machine);
+    }
+
+    [HttpPost]
+    public ActionResult RemoveEngineer(Machine machine, int engineerId)
+    {
+      EngineerMachine join = _db.EngineerMachine
+        .Where(entry => entry.MachineId == machine.MachineId)
+        .First(entry => entry.EngineerId == engineerId);
+      _db.EngineerMachine.Remove(join);
+      _db.SaveChanges();
+      return RedirectToAction("Details", new { id = machine.MachineId });
     }
   }
 }
