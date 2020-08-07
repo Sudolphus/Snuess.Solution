@@ -81,5 +81,22 @@ namespace Factory.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
+
+    public ActionResult AddLicense(int id)
+    {
+      Engineer engineer = _db.Engineers.First(eng => eng.EngineerId == id);
+      List<Machine> machines = _db.Machines.ToList();
+      machines.Sort();
+      ViewBag.MachineId = new SelectList(machines, "MachineId", "Name");
+      return View(engineer);
+    }
+
+    [HttpPost]
+    public ActionResult AddLicense(Engineer engineer, int machineId)
+    {
+      _db.EngineerMachine.Add(new EngineerMachine() { MachineId = machineId, EngineerId = engineer.EngineerId });
+      _db.SaveChanges();
+      return RedirectToAction("Details", new { id = engineer.EngineerId });
+    }
   }
 }

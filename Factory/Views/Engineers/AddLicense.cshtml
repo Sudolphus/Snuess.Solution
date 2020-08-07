@@ -1,0 +1,16 @@
+@{
+  Layout = "_Layout";
+}
+
+@model Factory.Models.Engineer
+
+<h2>Add License For @Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)</h2>
+@using (Html.BeginForm())
+{
+  @Html.HiddenFor(model => model.EngineerId)
+  <div class="form-group">
+    @Html.Label("Select Machine:")
+    @Html.DropDownList("MachineId")
+  </div>
+  <input type="submit" value="Add License" class="btn btn-primary" />
+}
