@@ -15,6 +15,26 @@ namespace Factory.Controllers
       _db = db;
     }
 
-    
+    public ActionResult Index()
+    {
+      IQueryable<Machine> machineQuery = _db.Machines;
+      IEnumerable<Machine> machineList = machineQuery
+        .ToList()
+        .OrderBy(machines => machines.Name);
+      return View(machineList);
+    }
+
+    public ActionResult Create()
+    {
+      return View();
+    }
+
+    [HttpPost]
+    public ActionResult Create(Machine newMachine)
+    {
+      _db.Machines.Add(newMachine);
+      _db.SaveChanges();
+      return View("Details", new { id = newMachine.MachineId});
+    }
   }
 }
