@@ -86,7 +86,7 @@ namespace Factory.Controllers
       Machine machine = _db.Machines.First(machines => machines.MachineId == id);
       List<Engineer> engineers = _db.Engineers.ToList();
       engineers.Sort();
-      ViewBag.EngineerId = new SelectList(engineers, "EngineerId", "FirstName LastName");
+      ViewBag.EngineerId = new SelectList(engineers, "EngineerId", "LastName");
       return View(machine);
     }
 
@@ -114,7 +114,7 @@ namespace Factory.Controllers
         .Include(entry => entry.Engineers)
         .ThenInclude(eng => eng.Engineer)
         .First(machines => machines.MachineId == id);
-      List<Engineer> engineers = new List();
+      List<Engineer> engineers = new List<Engineer>();
       foreach(EngineerMachine entry in machine.Engineers)
       {
         engineers.Add(entry.Engineer);

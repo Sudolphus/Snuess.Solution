@@ -22,5 +22,7 @@ else
   </ul>
 }
 
+<p>@Html.ActionLink("Add Licensed Engineer", "AddEngineer", new {id = Model.MachineId})</p>
+<p>@Html.ActionLink("Remove Licensed Engineer", "RemoveEngineer", new {id = Model.MachineId})</p>
 <p>@Html.ActionLink("Edit This Machine", "Edit", new {id = Model.MachineId})</p>
 <p>@Html.ActionLink("Delete This Machine", "Delete", new {id = Model.MachineId})</p>
