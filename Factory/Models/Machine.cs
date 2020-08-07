@@ -1,8 +1,9 @@
+using System;
 using System.Collections.Generic;
 
 namespace Factory.Models
 {
-  public class Machine
+  public class Machine : IComparable<Machine>
   {
     public int MachineId { get; set; }
     public string Name { get; set; }
@@ -11,6 +12,15 @@ namespace Factory.Models
     public Machine()
     {
       this.Engineers = new HashSet<EngineerMachine>();
+    }
+
+    public int CompareTo(Machine otherMachine)
+    {
+      if (otherMachine == null)
+      {
+        return 1;
+      }
+      return this.Name.CompareTo(otherMachine.Name);
     }
   }
 }

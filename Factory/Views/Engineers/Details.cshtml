@@ -5,9 +5,9 @@
 @using Factory.Models;
 @model Factory.Models.Engineer
 
-<h2>Model.FirstName Model.LastName</h2>
+<h2>@Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)</h2>
 <h3>Licenses</h3>
-@if(ViewBag.Licenses.Count() == 0)
+@if(ViewBag.Licenses.Count == 0)
 {
   <p><i>No Licenses Currently</i></p>
 }

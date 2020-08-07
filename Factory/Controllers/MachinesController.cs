@@ -34,23 +34,21 @@ namespace Factory.Controllers
     {
       _db.Machines.Add(newMachine);
       _db.SaveChanges();
-      return View("Details", new { id = newMachine.MachineId});
+      return RedirectToAction("Details", new { id = newMachine.MachineId});
     }
 
     public ActionResult Details(int id)
     {
       Machine machine = _db.Machines
+        .Include(machines => machines.Engineers)
+        .ThenInclude(join => join.Engineer)
         .First(machines => machines.MachineId == id);
-      IEnumerable<Engineer> engineerList = (IQueryable<Engineer>) _db.EngineerMachine
-        .Where(entry => entry.MachineId == id)
-        .Include(join => join.Engineer)
-        .ToList()
-        .OrderBy(entry => entry.Engineer.LastName)
-        .ThenBy(entry => entry.Engineer.FirstName);
-      // IEnumerable<Engineer> engineerList = engineerListQuery
-      //   .ToList()
-      //   .OrderBy(eng => eng.LastName)
-      //   .ThenBy(eng => eng.FirstName);
+      List<Engineer> engineerList = new List<Engineer>();
+      foreach(EngineerMachine entry in machine.Engineers)
+      {
+        engineerList.Add(entry.Engineer);
+      }
+      engineerList.Sort();
       ViewBag.EngineerList = engineerList;
       return View(machine);
     }
@@ -80,7 +78,7 @@ namespace Factory.Controllers
     {
       _db.Machines.Remove(machine);
       _db.SaveChanges();
-      return View("Index");
+      return RedirectToAction("Index");
     }
   }
 }

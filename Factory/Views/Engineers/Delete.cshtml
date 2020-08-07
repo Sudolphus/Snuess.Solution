@@ -11,7 +11,7 @@
   @Html.HiddenFor(model => model.EngineerId)
   @Html.HiddenFor(model => model.FirstName)
   @Html.HiddenFor(model => model.LastName)
-  <input type="submit" value="Delete" class="btn btn-alert" />
+  <input type="submit" value="Delete" class="btn btn-danger" />
 }
 
 <p>@Html.ActionLink("Back Without Deleting", "Details", new { id = Model.EngineerId })</p>

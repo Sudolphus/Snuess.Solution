@@ -41,18 +41,15 @@ namespace Factory.Controllers
     public ActionResult Details(int id)
     {
       Engineer engineer = _db.Engineers
+        .Include(eng => eng.Machines)
+        .ThenInclude(join => join.Machine)
         .First(eng => eng.EngineerId == id);
-      IEnumerable<Machine> licenses = (IQueryable<Machine>) _db.EngineerMachine
-        .Where(entry => entry.EngineerId == id)
-        .Include(join => join.Machine)
-        .ToList()
-        .OrderBy(entry => entry.Machine.Name);
-      // IQueryable<Machine> licenseQuery = _db.EngineerMachine
-      //   .Where(entry => entry.EngineerId == id)
-      //   .Include(join => join.Machine);
-      // IEnumerable<Machine> licenses = licenseQuery
-      //   .ToList()
-      //   .OrderBy(machines => machines.Name);
+      List<Machine> licenses = new List<Machine>();
+      foreach(EngineerMachine entry in engineer.Machines)
+      {
+        licenses.Add(entry.Machine);
+      }
+      licenses.Sort();
       ViewBag.Licenses = licenses;
       return View(engineer);
     }

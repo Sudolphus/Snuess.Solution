@@ -8,7 +8,7 @@
 
 @using (Html.BeginForm())
 {
-  <div class="form-control">
+  <div class="form-group">
     @Html.LabelFor(model => model.Name)
     @Html.TextBoxFor(model => model.Name, new { @class="form-control", @required=true })
   </div>
