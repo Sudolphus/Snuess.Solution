@@ -6,14 +6,21 @@
 
 <h2>Remove License From @Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)</h2>
 
-@using (Html.BeginForm())
+@if(ViewBag.MachineCount == 0)
 {
-  @Html.HiddenFor(model => model.EngineerId)
-  <div class="form-group">
-    @Html.Label("Remove License")
-    @Html.DropDownList("MachineId")
-  </div>
-  <input type="submit" value="Remove License" class="btn btn-danger" />
+  <p><i>This engineer has no licenses to remove.</i></p>
+}
+else
+{
+  @using (Html.BeginForm())
+  {
+    @Html.HiddenFor(model => model.EngineerId)
+    <div class="form-group">
+      @Html.Label("Remove License")
+      @Html.DropDownList("MachineId")
+    </div>
+    <input type="submit" value="Remove License" class="btn btn-danger" />
+  }
 }
 
 <p>@Html.ActionLink("Back", "Details", new { id = Model.EngineerId })</p>

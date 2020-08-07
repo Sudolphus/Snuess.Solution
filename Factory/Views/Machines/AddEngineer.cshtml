@@ -6,14 +6,21 @@
 
 <h2>Add Engineering License for @Html.DisplayFor(model => model.Name)</h2>
 
-@using (Html.BeginForm())
+@if(ViewBag.EngineerCount == 0)
 {
-  @Html.HiddenFor(model => model.MachineId)
-  <div class="form-group">
-    @Html.Label("Select Engineer:")
-    @Html.DropDownList("EngineerId")
-  </div>
-  <input type="submit" value="Add Engineer" class="btn btn-primary" />
+  <p><i>There are no engineers to add yet.</i></p>
+}
+else
+{
+  @using (Html.BeginForm())
+  {
+    @Html.HiddenFor(model => model.MachineId)
+    <div class="form-group">
+      @Html.Label("Select Engineer:")
+      @Html.DropDownList("EngineerId")
+    </div>
+    <input type="submit" value="Add Engineer" class="btn btn-primary" />
+  }
 }
 
 <p>@Html.ActionLink("Back", "Details", new { id = Model.MachineId })</p>

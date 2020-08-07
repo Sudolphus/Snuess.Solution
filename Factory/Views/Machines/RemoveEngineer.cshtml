@@ -6,14 +6,21 @@
 
 <h2>Remove Engineer from @Html.DisplayFor(model => model.Name)</h2>
 
-@using (Html.BeginForm())
+@if(ViewBag.EngineerCount == 0)
 {
-  @Html.HiddenFor(model => model.MachineId)
-  <div class="form-group">
-    @Html.Label("Select Engineer:")
-    @Html.DropDownList("EngineerId")
-  </div>
-  <input type="submit" value="Remove Engineer" class="btn btn-danger" />
+  <p><i>There are no engineers licensed for this machine.</i></p>
+}
+else
+{
+  @using (Html.BeginForm())
+  {
+    @Html.HiddenFor(model => model.MachineId)
+    <div class="form-group">
+      @Html.Label("Select Engineer:")
+      @Html.DropDownList("EngineerId")
+    </div>
+    <input type="submit" value="Remove Engineer" class="btn btn-danger" />
+  }
 }
 
 <p>@Html.ActionLink("Back", "Details", new { id = Model.MachineId})</p>

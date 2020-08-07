@@ -88,6 +88,7 @@ namespace Factory.Controllers
       Engineer engineer = _db.Engineers.First(eng => eng.EngineerId == id);
       List<Machine> machines = _db.Machines.ToList();
       machines.Sort();
+      ViewBag.MachineCount = machines.Count();
       ViewBag.MachineId = new SelectList(machines, "MachineId", "Name");
       return View(engineer);
     }
@@ -121,6 +122,7 @@ namespace Factory.Controllers
         licenses.Add(entry.Machine);
       }
       licenses.Sort();
+      ViewBag.MachineCount = licenses.Count();
       ViewBag.MachineId = new SelectList(licenses, "MachineId", "Name");
       return View(engineer);
     }
