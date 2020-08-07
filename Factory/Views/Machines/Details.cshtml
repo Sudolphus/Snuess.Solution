@@ -1,0 +1,26 @@
+@{
+  Layout = "_Layout";
+}
+
+@using Factory.Models
+@model Factory.Models.Machine
+
+<h2>@Html.DisplayFor(model => model.Name)</h2>
+
+<h3>Engineers Licensed For This Machine:</h3>
+@if (ViewBag.EngineerList.Count() == 0)
+{
+  <p><i>No Engineers Licensed</i></p>
+}
+else
+{
+  <ul>
+  @foreach(Engineer engineer in ViewBag.EngineerList)
+  {
+    <li>@Html.ActionLink($"{engineer.FirstName} {engineer.LastName}", "Details", "Engineers", new { id = engineer.EngineerId })</li>
+  }
+  </ul>
+}
+
+<p>@Html.ActionLink("Edit This Machine", "Edit", new {id = Model.MachineId})</p>
+<p>@Html.ActionLink("Delete This Machine", "Delete", new {id = Model.MachineId})</p>

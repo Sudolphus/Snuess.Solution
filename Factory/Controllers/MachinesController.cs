@@ -43,6 +43,11 @@ namespace Factory.Controllers
         .Include(machines => machines.Engineers)
         .ThenInclude(join => join.Engineer)
         .First(machines => machines.MachineId = id);
+      IEnumerable<Engineer> engineerList = machine.Engineers.Engineer
+        .ToList()
+        .OrderBy(eng => eng.LastName)
+        .ThenBy(eng => eng.FirstName);
+      ViewBag.EngineerList = engineerList;
       return View(machine);
     }
 
