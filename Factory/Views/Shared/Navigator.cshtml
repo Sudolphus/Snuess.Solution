@@ -1,5 +1,18 @@
-<div class="navigator">
-  @Html.ActionLink("Home", "Index", "Home")
-  @Html.ActionLink("Engineers", "Index", "Engineers")
-  @Html.ActionLink("Machines", "Index", "Machines")
+<div class="navigator row">
+  <div class="col-md-2">
+    @Html.ActionLink("Home", "Index", "Home")
+  </div>
+  <div class="col-md-2">
+    @Html.ActionLink("Engineers", "Index", "Engineers")
+  </div>
+  <div class="col-md-2">
+    @Html.ActionLink("Machines", "Index", "Machines")
+  </div>
+  <div class="col-md-6">
+    <form action="/" method="post">
+      <input type="text" name="dummy" id="dummy" value="dummy" class="hidden" />
+      <input type="search" placeholder="Search" name="searchString" id="searchString" />
+      <input type="submit" value="Search" />
+    </form>
+  </div>
 </div>

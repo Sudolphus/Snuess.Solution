@@ -1,0 +1,31 @@
+.page-header {
+  text-align: center;
+}
+
+.navigator {
+  background-color: black;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.navigator a {
+  color: white;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  width: 100%;
+}
+
+.navigator a:hover {
+  background-color: grey;
+  color: black;
+}
+
+.navigator form {
+  text-align: right;
+}
+
+.hidden {
+  display: none;
+}
