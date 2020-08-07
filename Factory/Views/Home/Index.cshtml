@@ -2,5 +2,34 @@
   Layout = "_Layout";
 }
 
-<p>@Html.ActionLink("Engineers", "Index", "Engineers")</p>
-<p>@Html.ActionLink("Machines", "Index", "Machines")</p>
+@using Factory.Models
+
+<h2>Machines:</h2>
+@if(ViewBag.MachineList.Count == 0)
+{
+  <p><i>No Machines in the Database</i></p>
+}
+else
+{
+  <ul>
+    @foreach(Machine machine in ViewBag.MachineList)
+    {
+      <li>@Html.ActionLink($"{machine.Name}", "Details", "Machines", new { id = machine.MachineId })</li>
+    }
+  </ul>
+}
+
+<h2>Engineers:</h2>
+@if(ViewBag.EngineerList.Count == 0)
+{
+  <p><i>No Engineers in the Database</i></p>
+}
+else
+{
+  <ul>
+    @foreach(Engineer engineer in ViewBag.EngineerList)
+    {
+      <li>@Html.ActionLink($"{engineer.FullName}", "Details", "Engineers", new { id = engineer.EngineerId })</li>
+    }
+  </ul>
+}
