@@ -4,15 +4,16 @@
 
 @model Factory.Models.Engineer
 
-<h2>Add License For @Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)</h2>
+<h2>Remove License From @Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)</h2>
+
 @using (Html.BeginForm())
 {
   @Html.HiddenFor(model => model.EngineerId)
   <div class="form-group">
-    @Html.Label("Select Machine:")
+    @Html.Label("Remove License")
     @Html.DropDownList("MachineId")
   </div>
-  <input type="submit" value="Add License" class="btn btn-primary" />
+  <input type="submit" value="Remove License" class="btn btn-danger" />
 }
 
 <p>@Html.ActionLink("Back", "Details", new { id = Model.EngineerId })</p>

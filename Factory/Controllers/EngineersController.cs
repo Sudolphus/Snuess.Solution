@@ -98,5 +98,32 @@ namespace Factory.Controllers
       _db.SaveChanges();
       return RedirectToAction("Details", new { id = engineer.EngineerId });
     }
+
+    public ActionResult RemoveLicense(int id)
+    {
+      Engineer engineer = _db.Engineers
+        .Include(eng => eng.Machines)
+        .ThenInclude(join => join.Machine)
+        .First(eng => eng.EngineerId == id);
+      List<Machine> licenses = new List<Machine>();
+      foreach(EngineerMachine entry in engineer.Machines)
+      {
+        licenses.Add(entry.Machine);
+      }
+      licenses.Sort();
+      ViewBag.MachineId = new SelectList(licenses, "MachineId", "Name");
+      return View(engineer);
+    }
+
+    [HttpPost]
+    public ActionResult RemoveLicense(Engineer engineer, int machineId)
+    {
+      EngineerMachine join = _db.EngineerMachine
+        .Where(entry => entry.EngineerId == engineer.EngineerId)
+        .First(entry => entry.MachineId == machineId);
+      _db.EngineerMachine.Remove(join);
+      _db.SaveChanges();
+      return RedirectToAction("Details", new { id = engineer.EngineerId });
+    }
   }
 }
