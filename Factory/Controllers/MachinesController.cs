@@ -36,5 +36,14 @@ namespace Factory.Controllers
       _db.SaveChanges();
       return View("Details", new { id = newMachine.MachineId});
     }
+
+    public ActionResult Details(int id)
+    {
+      Machine machine = _db.Machines
+        .Include(machines => machines.Engineers)
+        .ThenInclude(join => join.Engineer)
+        .First(machines => machines.MachineId = id);
+      return View(machine);
+    }
   }
 }
