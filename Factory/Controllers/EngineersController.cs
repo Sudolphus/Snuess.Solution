@@ -24,5 +24,18 @@ namespace Factory.Controllers
         .ThenBy(eng => eng.FirstName);
       return View(engineerList);
     }
+
+    public ActionResult Create()
+    {
+      return View();
+    }
+
+    [HttpPost]
+    public ActionResult Create(Engineer newEngineer)
+    {
+      _db.Engineers.Add(newEngineer);
+      _db.SaveChanges();
+      return RedirectToAction("Details", new { id = newEngineer.EngineerId });
+    }
   }
 }
