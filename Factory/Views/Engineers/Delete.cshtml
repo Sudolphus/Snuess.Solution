@@ -1,0 +1,17 @@
+@{
+  Layout = "_Layout";
+}
+
+@model Factory.Models.Engineer
+
+<h2>Are you sure you want to delete @Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)</h2>
+
+@using (Html.BeginForm())
+{
+  @Html.HiddenFor(model => model.EngineerId)
+  @Html.HiddenFor(model => model.FirstName)
+  @Html.HiddenFor(model => model.LastName)
+  <input type="submit" value="Delete" class="btn btn-alert" />
+}
+
+<p>@Html.ActionLink("Back Without Deleting", "Details", new { id = Model.EngineerId })</p>

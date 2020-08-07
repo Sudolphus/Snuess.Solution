@@ -1,0 +1,20 @@
+@{
+  Layout = "_Layout";
+}
+
+@model Factory.Models.Engineer
+
+@using (Html.BeginForm())
+{
+  <div class="form-group">
+    @Html.Label("First Name")
+    @Html.TextBoxFor(model => model.FirstName, new { @class="form-control", @required })
+  </div>
+  <div class="form-group">
+    @Html.Label("Last Name")
+    @Html.TextBoxFor(model => model.LastName, new { @class="form-control", @required })
+  </div>
+  <input type="submit" value="Save Changes" class="btn btn-primary" />
+}
+
+<p>@Html.ActionLink("Back Without Saving", "Details", new { id = Model.EngineerId })</p>
