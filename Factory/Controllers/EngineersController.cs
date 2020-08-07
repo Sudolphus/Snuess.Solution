@@ -9,7 +9,7 @@ namespace Factory.Controllers
 {
   public class EngineersController : Controller
   {
-    private readonly FactoryContext _db
+    private readonly FactoryContext _db;
     public EngineersController(FactoryContext db)
     {
       _db = db;
@@ -37,5 +37,16 @@ namespace Factory.Controllers
       _db.SaveChanges();
       return RedirectToAction("Details", new { id = newEngineer.EngineerId });
     }
+
+    public ActionResult Details(int id)
+    {
+      Engineer engineer = _db.Engineers
+        .Include(eng => eng.Machines)
+        .ThenInclude(join => join.Machine)
+        .First(eng => eng.EngineerId == id);
+      return View(engineer);
+    }
+
+
   }
 }
