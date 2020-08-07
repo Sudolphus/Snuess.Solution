@@ -33,6 +33,7 @@ namespace Factory.Controllers
     [HttpPost]
     public ActionResult Create(Engineer newEngineer)
     {
+      newEngineer.FullName = newEngineer.FirstName + " " + newEngineer.LastName;
       _db.Engineers.Add(newEngineer);
       _db.SaveChanges();
       return RedirectToAction("Details", new { id = newEngineer.EngineerId });

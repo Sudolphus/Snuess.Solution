@@ -86,7 +86,7 @@ namespace Factory.Controllers
       Machine machine = _db.Machines.First(machines => machines.MachineId == id);
       List<Engineer> engineers = _db.Engineers.ToList();
       engineers.Sort();
-      ViewBag.EngineerId = new SelectList(engineers, "EngineerId", "LastName");
+      ViewBag.EngineerId = new SelectList(engineers, "EngineerId", "FullName");
       return View(machine);
     }
 
@@ -120,7 +120,7 @@ namespace Factory.Controllers
         engineers.Add(entry.Engineer);
       }
       engineers.Sort();
-      ViewBag.EnginerId = new SelectList(engineers, "EngineerId", "FirstName LastName");
+      ViewBag.EnginerId = new SelectList(engineers, "EngineerId", "FullName");
       return View(machine);
     }
 
