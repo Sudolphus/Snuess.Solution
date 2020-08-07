@@ -1,0 +1,22 @@
+@{
+  Layout = "_Layout";
+}
+
+@using Factory.Models;
+@model Factory.Models.Engineer
+
+<h2>Model.FirstName Model.LastName</h2>
+<h3>Licenses</h3>
+@if(ViewBag.Licenses.Count() == 0)
+{
+  <p><i>No Licenses Currently</i></p>
+}
+else
+{
+  <ul>
+  @foreach(Machine machine in ViewBag.Licenses)
+  {
+    <li>@Html.ActionLink($"{machine.Name}", "Details", "Machines", new { id = machine.MachineId })</li>
+  }
+  </ul>
+}

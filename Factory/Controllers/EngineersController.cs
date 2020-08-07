@@ -44,6 +44,10 @@ namespace Factory.Controllers
         .Include(eng => eng.Machines)
         .ThenInclude(join => join.Machine)
         .First(eng => eng.EngineerId == id);
+      IEnumerable<Machine> licenses = engineer.Machines.Machine
+        .ToList()
+        .OrderBy(machines => machines.Name);
+      ViewBag.Licenses = licenses;
       return View(engineer);
     }
 
