@@ -94,8 +94,17 @@ namespace Factory.Controllers
     [HttpPost]
     public ActionResult AddLicense(Engineer engineer, int machineId)
     {
-      _db.EngineerMachine.Add(new EngineerMachine() { MachineId = machineId, EngineerId = engineer.EngineerId });
-      _db.SaveChanges();
+      EngineerMachine join = null;
+      try {
+        join = _db.EngineerMachine
+          .Where(entry => entry.EngineerId == engineer.EngineerId)
+          .First(entry => entry.MachineId == machineId);
+      }
+      catch
+      {
+        _db.EngineerMachine.Add(new EngineerMachine() { MachineId = machineId, EngineerId = engineer.EngineerId });
+        _db.SaveChanges();
+      }
       return RedirectToAction("Details", new { id = engineer.EngineerId });
     }
 
